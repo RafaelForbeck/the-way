@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=4 uid="uid://b7jrexi7jbhxl"]
+[gd_scene load_steps=6 format=4 uid="uid://b7jrexi7jbhxl"]
 
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
 [ext_resource type="Texture2D" uid="uid://ivms13rjeykx" path="res://sprites/tiles_spritesheet.png" id="2_6n70k"]
+[ext_resource type="PackedScene" uid="uid://5rgmrnka8y3c" path="res://entities/player.tscn" id="3_nqrv7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dor0i"]
 texture = ExtResource("2_6n70k")
@@ -188,5 +189,8 @@ texture = ExtResource("1_44mud")
 centered = false
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAYAAAAHAAgAAAABAAYAAAAHAAgAAAACAAYAAAAHAAgAAAADAAYAAAAHAAgAAAAEAAYAAAAHAAgAAAAFAAYAAAAHAAgAAAAGAAYAAAAHAAgAAAAHAAYAAAAHAAgAAAAIAAYAAAAHAAgAAAAJAAYAAAAHAAgAAAAKAAYAAAAHAAgAAAALAAYAAAAHAAgAAAAMAAYAAAAHAAgAAAANAAYAAAAHAAgAAAAOAAYAAAAHAAgAAAAPAAYAAAAHAAgAAAA=")
+tile_map_data = PackedByteArray("AAAAAAYAAAAHAAgAAAABAAYAAAAHAAgAAAACAAYAAAAHAAgAAAADAAYAAAAHAAgAAAAEAAYAAAAHAAgAAAAFAAYAAAAHAAgAAAAGAAYAAAAHAAgAAAAHAAYAAAAHAAgAAAAIAAYAAAAHAAgAAAAJAAYAAAAHAAgAAAAKAAYAAAAHAAgAAAALAAYAAAAHAAgAAAAMAAYAAAAHAAgAAAANAAYAAAAHAAgAAAAOAAYAAAAHAAgAAAAPAAYAAAAHAAgAAAAAAAcAAAAIAAwAAAABAAcAAAAIAAwAAAACAAcAAAAIAAwAAAADAAcAAAAIAAwAAAAEAAcAAAAIAAwAAAAFAAcAAAAIAAwAAAAGAAcAAAAIAAwAAAAHAAcAAAAIAAwAAAAIAAcAAAAIAAwAAAAJAAcAAAAIAAwAAAAKAAcAAAAIAAwAAAALAAcAAAAIAAwAAAAMAAcAAAAIAAwAAAANAAcAAAAIAAwAAAAOAAcAAAAIAAwAAAAPAAcAAAAIAAwAAAA=")
 tile_set = SubResource("TileSet_xi1i5")
+
+[node name="Player" parent="." instance=ExtResource("3_nqrv7")]
+position = Vector2(98, 317)
