@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bo32qx4pv4d74"
-path="res://.godot/imported/characters.svg-fadf90fe4ac47b70d14203c89e50b8d7.ctex"
+uid="uid://difcnf264p0ow"
+path="res://.godot/imported/p1_walk04.png-8579932fae1aa0a4d853a8bcfc763180.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/characters.svg"
-dest_files=["res://.godot/imported/characters.svg-fadf90fe4ac47b70d14203c89e50b8d7.ctex"]
+source_file="res://sprites/player/walk/p1_walk04.png"
+dest_files=["res://.godot/imported/p1_walk04.png-8579932fae1aa0a4d853a8bcfc763180.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false
