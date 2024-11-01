@@ -32,3 +32,5 @@ animation = &"Idle"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, 7.5)
 shape = SubResource("RectangleShape2D_kpls7")
+
+[node name="Camera2D" type="Camera2D" parent="."]
