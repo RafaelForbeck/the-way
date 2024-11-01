@@ -53,6 +53,7 @@ radius = 24.0
 height = 84.0
 
 [node name="Player" type="CharacterBody2D"]
+scale = Vector2(0.5, 0.5)
 collision_mask = 2
 script = ExtResource("1_57enj")
 
@@ -60,7 +61,7 @@ script = ExtResource("1_57enj")
 sprite_frames = SubResource("SpriteFrames_n1v54")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.805084
+frame_progress = 0.0279317
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 3)
@@ -68,5 +69,4 @@ shape = SubResource("CapsuleShape2D_13vav")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 limit_left = 0
-limit_right = 2000
 limit_bottom = 512
