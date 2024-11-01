@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7jrexi7jbhxl"]
+
+[ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
+
+[node name="Phase" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("1_44mud")
+centered = false
