@@ -14,6 +14,9 @@ var direction = 0
 
 func _physics_process(delta: float) -> void:
 	
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+	
 	direction = Input.get_axis("move_left", "move_right")
 	if direction:
 		velocity.x = move_toward(velocity.x, max_speed * direction, acceleration * delta)
@@ -61,11 +64,7 @@ func walking_state():
 		go_to_idle_state()
 
 func jumping_state(delta):
-	if is_on_floor():
-		if direction == 0:
-			go_to_idle_state()
-		else:
-			go_to_walking_state()
+	if direction == 0:
+		go_to_idle_state()
 	else:
-		velocity += get_gravity() * delta
-		
+		go_to_walking_state()
