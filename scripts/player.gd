@@ -3,6 +3,7 @@ extends CharacterBody2D
 enum PlayerState { IDLE, WALKING, JUMPING, DUCKING }
 
 @onready var anim = $AnimatedSprite2D
+@onready var collisionShape = $CollisionShape2D
 
 @export var max_speed = 300.0
 @export var deceleration = 1200.0
@@ -55,7 +56,13 @@ func go_to_jumping_state():
 	
 func go_to_ducking_state():
 	status = PlayerState.DUCKING
+	collisionShape.shape.height = 50
+	collisionShape.position.y = 16
 	anim.play("duck")
+	
+func exit_from_ducking_state():
+	collisionShape.shape.height = 84
+	collisionShape.position.y = 5
 	
 func idle_state(delta):
 	
@@ -103,6 +110,7 @@ func jumping_state(delta):
 func ducking_state(delta):
 	decelerate(delta)
 	if not Input.is_action_pressed("duck"):
+		exit_from_ducking_state()
 		go_to_idle_state()
 		
 func move(delta):
