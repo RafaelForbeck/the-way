@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum PlayerState { IDLE, WALKING, JUMPING }
+enum PlayerState { IDLE, WALKING, JUMPING, DUCKING }
 
 @onready var anim = $AnimatedSprite2D
 
@@ -16,25 +16,27 @@ func _physics_process(delta: float) -> void:
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-	
-	direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = move_toward(velocity.x, max_speed * direction, acceleration * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 		
+	direction = Input.get_axis("move_left", "move_right")
+	
 	if velocity.x > 0:
 		anim.flip_h = false
 	elif velocity.x < 0:
 		anim.flip_h = true
+	elif direction < 0:
+		anim.flip_h = true
+	elif direction > 0:
+		anim.flip_h = false
 	
 	match status:
 		PlayerState.IDLE:
 			idle_state()
 		PlayerState.WALKING:
-			walking_state()
+			walking_state(delta)
 		PlayerState.JUMPING:
 			jumping_state(delta)
+		PlayerState.DUCKING:
+			ducking_state(delta)
 
 	move_and_slide()
 
@@ -51,27 +53,63 @@ func go_to_jumping_state():
 	velocity.y = jump_velocity
 	anim.play("jumping")
 	
+func go_to_ducking_state():
+	status = PlayerState.DUCKING
+	anim.play("duck")
+	
 func idle_state():
 	if Input.is_action_just_pressed("jump"): # and is_on_floor():
 		go_to_jumping_state()
+		return
+		
+	if Input.is_action_just_pressed("duck"): # and is_on_floor():
+		go_to_ducking_state()
 		return
 	
 	if direction != 0:
 		go_to_walking_state()
 		return
 
-func walking_state():
+func walking_state(delta):
+	
+	move(delta)
+	
 	if Input.is_action_just_pressed("jump"): # and is_on_floor():
 		go_to_jumping_state()
 		return
+		
+	if Input.is_action_just_pressed("duck"):
+		go_to_ducking_state()
+		return
+		
 	if velocity.x == 0:
 		go_to_idle_state()
 		return
 
 func jumping_state(delta):
+	
+	move(delta)
+	
 	if is_on_floor():
 		if direction == 0:
 			go_to_idle_state()
 		else:
 			go_to_walking_state()
 		return
+
+func ducking_state(delta):
+	decelerate(delta)
+	if not Input.is_action_pressed("duck"):
+		go_to_idle_state()
+		
+func move(delta):
+	if direction != 0:
+		accelerate(delta)
+	else:
+		decelerate(delta)
+
+func accelerate(delta):
+	velocity.x = move_toward(velocity.x, max_speed * direction, acceleration * delta)
+	
+func decelerate(delta):
+	velocity.x = move_toward(velocity.x, 0, deceleration * delta)
