@@ -1,4 +1,4 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 enum PlayerState { IDLE, WALKING, JUMPING, DUCKING, HURTED }
 
@@ -144,3 +144,6 @@ func player_dead():
 func respawn():
 	position = checkPointPosition
 	go_to_jumping_state()
+
+func update_checkpoint(new_position):
+	checkPointPosition = new_position

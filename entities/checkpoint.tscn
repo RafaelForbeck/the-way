@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://nb2pk5clhgbv"]
+
+[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_4aw3h"]
+[ext_resource type="Texture2D" uid="uid://82lrggvd6ph3" path="res://sprites/flagBlueHanging.png" id="2_x4faq"]
+[ext_resource type="Texture2D" uid="uid://fsxv11ebmmqy" path="res://sprites/flagBlue.png" id="3_rfc7d"]
+[ext_resource type="Texture2D" uid="uid://bjl8nkwb3yp1i" path="res://sprites/flagBlue2.png" id="4_uyxo4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8bgvr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_x4faq")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_rfc7d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_uyxo4")
+}],
+"loop": true,
+"name": &"on",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mw5q0"]
+size = Vector2(8, 32)
+
+[node name="Checkpoint" type="Area2D"]
+position = Vector2(664, 392)
+collision_layer = 8
+script = ExtResource("1_4aw3h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, -1)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_8bgvr")
+animation = &"on"
+autoplay = "off"
+frame_progress = 0.158963
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-12, 0)
+shape = SubResource("RectangleShape2D_mw5q0")
+debug_color = Color(0.850667, 1, 0.36, 0.74902)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
