@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://5rgmrnka8y3c"]
+[gd_scene load_steps=13 format=3 uid="uid://5rgmrnka8y3c"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_57enj"]
 [ext_resource type="Texture2D" uid="uid://fao2kp1qvfch" path="res://sprites/player/duck.png" id="2_r0qw5"]
 [ext_resource type="Texture2D" uid="uid://l0txvehu3774" path="res://sprites/player/walk/p1_walk03.png" id="3_3oh4y"]
 [ext_resource type="Texture2D" uid="uid://dnlo42dhpnfry" path="res://sprites/player/stand.png" id="3_h7skj"]
+[ext_resource type="Texture2D" uid="uid://dh635145uhcj1" path="res://sprites/player/hurted.png" id="3_oiwv2"]
 [ext_resource type="Texture2D" uid="uid://difcnf264p0ow" path="res://sprites/player/walk/p1_walk04.png" id="4_aqcg0"]
 [ext_resource type="Texture2D" uid="uid://bftl6c1134axo" path="res://sprites/player/jump.png" id="4_jnhfg"]
 [ext_resource type="Texture2D" uid="uid://cqrx6eokfmetr" path="res://sprites/player/walk/p1_walk05.png" id="5_6eni2"]
@@ -16,25 +17,33 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("2_r0qw5")
 }],
-"loop": true,
+"loop": false,
 "name": &"duck",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_oiwv2")
+}],
+"loop": false,
+"name": &"hurted",
 "speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("3_h7skj")
 }],
-"loop": true,
+"loop": false,
 "name": &"idle",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_jnhfg")
 }],
-"loop": true,
+"loop": false,
 "name": &"jumping",
-"speed": 5.0
+"speed": 1.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -77,7 +86,7 @@ script = ExtResource("1_57enj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n1v54")
-animation = &"idle"
+animation = &"walking"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

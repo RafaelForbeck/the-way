@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum PlayerState { IDLE, WALKING, JUMPING, DUCKING }
+enum PlayerState { IDLE, WALKING, JUMPING, DUCKING, HURTED }
 
 @onready var anim = $AnimatedSprite2D
 @onready var collisionShape = $CollisionShape2D
@@ -10,8 +10,13 @@ enum PlayerState { IDLE, WALKING, JUMPING, DUCKING }
 @export var acceleration = 1600.0
 @export var jump_velocity = -600.0
 
-var status = PlayerState.JUMPING
+var status :PlayerState
 var direction = 0
+var checkPointPosition: Vector2
+
+func _ready() -> void:
+	checkPointPosition = position
+	go_to_jumping_state()
 
 func _physics_process(delta: float) -> void:
 	
@@ -38,6 +43,8 @@ func _physics_process(delta: float) -> void:
 			jumping_state(delta)
 		PlayerState.DUCKING:
 			ducking_state(delta)
+		PlayerState.HURTED:
+			hurted_state(delta)
 
 	move_and_slide()
 
@@ -64,15 +71,19 @@ func exit_from_ducking_state():
 	collisionShape.shape.height = 84
 	collisionShape.position.y = 5
 	
+func go_to_hurted_state():
+	status = PlayerState.HURTED
+	anim.play("hurted")
+	
 func idle_state(delta):
 	
 	decelerate(delta)
 	
-	if Input.is_action_just_pressed("jump"): # and is_on_floor():
+	if Input.is_action_just_pressed("jump"):
 		go_to_jumping_state()
 		return
 		
-	if Input.is_action_just_pressed("duck"): # and is_on_floor():
+	if Input.is_action_just_pressed("duck"):
 		go_to_ducking_state()
 		return
 	
@@ -84,7 +95,7 @@ func walking_state(delta):
 	
 	move(delta)
 	
-	if Input.is_action_just_pressed("jump"): # and is_on_floor():
+	if Input.is_action_just_pressed("jump"):
 		go_to_jumping_state()
 		return
 		
@@ -97,7 +108,6 @@ func walking_state(delta):
 		return
 
 func jumping_state(delta):
-	
 	move(delta)
 	
 	if is_on_floor():
@@ -113,6 +123,9 @@ func ducking_state(delta):
 		exit_from_ducking_state()
 		go_to_idle_state()
 		
+func hurted_state(delta):
+	decelerate(delta)
+		
 func move(delta):
 	if direction != 0:
 		accelerate(delta)
@@ -124,3 +137,10 @@ func accelerate(delta):
 	
 func decelerate(delta):
 	velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+
+func player_dead():
+	go_to_hurted_state()
+	
+func respawn():
+	position = checkPointPosition
+	go_to_jumping_state()
