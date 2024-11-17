@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	
 	match status:
 		PlayerState.IDLE:
-			idle_state()
+			idle_state(delta)
 		PlayerState.WALKING:
 			walking_state(delta)
 		PlayerState.JUMPING:
@@ -57,7 +57,10 @@ func go_to_ducking_state():
 	status = PlayerState.DUCKING
 	anim.play("duck")
 	
-func idle_state():
+func idle_state(delta):
+	
+	decelerate(delta)
+	
 	if Input.is_action_just_pressed("jump"): # and is_on_floor():
 		go_to_jumping_state()
 		return
