@@ -22,6 +22,11 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, max_speed * direction, acceleration * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, deceleration * delta)
+		
+	if velocity.x > 0:
+		anim.flip_h = false
+	elif velocity.x < 0:
+		anim.flip_h = true
 	
 	match status:
 		PlayerState.IDLE:
@@ -30,12 +35,7 @@ func _physics_process(delta: float) -> void:
 			walking_state()
 		PlayerState.JUMPING:
 			jumping_state(delta)
-	
-	if velocity.x > 0:
-		anim.flip_h = false
-	elif velocity.x < 0:
-		anim.flip_h = true
-		
+
 	move_and_slide()
 
 func go_to_idle_state():
@@ -54,17 +54,24 @@ func go_to_jumping_state():
 func idle_state():
 	if Input.is_action_just_pressed("jump"): # and is_on_floor():
 		go_to_jumping_state()
+		return
+	
 	if direction != 0:
 		go_to_walking_state()
+		return
 
 func walking_state():
 	if Input.is_action_just_pressed("jump"): # and is_on_floor():
 		go_to_jumping_state()
+		return
 	if velocity.x == 0:
 		go_to_idle_state()
+		return
 
 func jumping_state(delta):
-	if direction == 0:
-		go_to_idle_state()
-	else:
-		go_to_walking_state()
+	if is_on_floor():
+		if direction == 0:
+			go_to_idle_state()
+		else:
+			go_to_walking_state()
+		return
