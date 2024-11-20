@@ -4,6 +4,7 @@ enum PlayerState { IDLE, WALKING, JUMPING, DUCKING, HURTED }
 
 @onready var anim = $AnimatedSprite2D
 @onready var collisionShape = $CollisionShape2D
+@onready var hitBox = $Hitbox/CollisionShape2D
 
 @export var max_speed = 300.0
 @export var deceleration = 1200.0
@@ -65,11 +66,15 @@ func go_to_ducking_state():
 	status = PlayerState.DUCKING
 	collisionShape.shape.height = 50
 	collisionShape.position.y = 16
+	hitBox.shape.size.y = 50
+	hitBox.position.y = 16
 	anim.play("duck")
 	
 func exit_from_ducking_state():
 	collisionShape.shape.height = 84
 	collisionShape.position.y = 5
+	hitBox.shape.size.y = 82
+	hitBox.position.y = 7
 	
 func go_to_hurted_state():
 	status = PlayerState.HURTED

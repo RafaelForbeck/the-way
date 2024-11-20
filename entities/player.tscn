@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://5rgmrnka8y3c"]
+[gd_scene load_steps=14 format=3 uid="uid://5rgmrnka8y3c"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_57enj"]
 [ext_resource type="Texture2D" uid="uid://fao2kp1qvfch" path="res://sprites/player/duck.png" id="2_r0qw5"]
@@ -75,9 +75,12 @@ animations = [{
 "speed": 20.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_13vav"]
-radius = 24.0
-height = 84.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4rocp"]
+radius = 20.0
+height = 82.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oeelp"]
+size = Vector2(36, 82)
 
 [node name="Player" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -86,14 +89,21 @@ script = ExtResource("1_57enj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n1v54")
-animation = &"walking"
+animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 5)
-shape = SubResource("CapsuleShape2D_13vav")
+position = Vector2(0, 7)
+shape = SubResource("CapsuleShape2D_4rocp")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(0, 4)
 limit_left = 0
 limit_bottom = 512
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, 7)
+shape = SubResource("RectangleShape2D_oeelp")
+debug_color = Color(0.898626, 0.000182512, 0.76833, 0.42)
