@@ -5,7 +5,7 @@ extends Area2D
 func _on_body_entered(body: Node2D) -> void:
 	get_tree().call_group("checkpoints", "off")
 	anim.play("on")
-	body.update_checkpoint(position)
+	GameManager.update_respawn_point(position)
 
 func off():
 	anim.play("off")

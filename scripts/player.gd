@@ -13,10 +13,9 @@ enum PlayerState { IDLE, WALKING, JUMPING, DUCKING, HURTED }
 
 var status :PlayerState
 var direction = 0
-var checkPointPosition: Vector2
 
 func _ready() -> void:
-	checkPointPosition = position
+	GameManager.update_respawn_point(position)
 	go_to_jumping_state()
 
 func _physics_process(delta: float) -> void:
@@ -147,8 +146,14 @@ func player_dead():
 	go_to_hurted_state()
 	
 func respawn():
-	position = checkPointPosition
+	position = GameManager.get_respawn_point()
 	go_to_jumping_state()
 
-func update_checkpoint(new_position):
-	checkPointPosition = new_position
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	match area.collision_layer:
+		8: # enemy_hitbox
+			respawn()
+		32: # water
+			respawn()
+		
+		

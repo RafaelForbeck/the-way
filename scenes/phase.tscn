@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://b7jrexi7jbhxl"]
+[gd_scene load_steps=16 format=4 uid="uid://b7jrexi7jbhxl"]
 
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_h5xau"]
@@ -6,6 +6,34 @@
 [ext_resource type="Script" path="res://scripts/water.gd" id="3_kaqn4"]
 [ext_resource type="PackedScene" uid="uid://5rgmrnka8y3c" path="res://entities/player.tscn" id="3_nqrv7"]
 [ext_resource type="PackedScene" uid="uid://nb2pk5clhgbv" path="res://entities/checkpoint.tscn" id="6_r62uk"]
+[ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy.tscn" id="7_3eilj"]
+
+[sub_resource type="Animation" id="Animation_15nwx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Water/AnimationPlayer/Back:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-152, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Water/AnimationPlayer/Front:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-300, 8)]
+}
 
 [sub_resource type="Animation" id="Animation_4ttn1"]
 resource_name = "water"
@@ -34,33 +62,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(-300, 8), Vector2(0, 8), Vector2(-300, 8)]
-}
-
-[sub_resource type="Animation" id="Animation_15nwx"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Water/AnimationPlayer/Back:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-152, -8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Water/AnimationPlayer/Front:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-300, 8)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s8njs"]
@@ -256,7 +257,8 @@ texture_region_size = Vector2i(70, 70)
 
 [sub_resource type="TileSet" id="TileSet_xi1i5"]
 tile_size = Vector2i(70, 70)
-physics_layer_0/collision_layer = 2
+physics_layer_0/collision_layer = 16
+physics_layer_0/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_dor0i")
 
 [node name="Phase" type="Node2D"]
@@ -302,11 +304,12 @@ rendering_quadrant_size = 70
 script = ExtResource("3_kaqn4")
 
 [node name="DeathZone" type="Area2D" parent="Water"]
-collision_layer = 4
+position = Vector2(2736, 528)
+collision_layer = 32
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Water/DeathZone"]
 z_index = 10
-position = Vector2(2732, 552)
 shape = SubResource("RectangleShape2D_48yma")
 debug_color = Color(0, 0.615686, 0.592157, 0.454902)
 
@@ -329,4 +332,5 @@ position = Vector2(884, 405)
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
 
-[connection signal="body_entered" from="Water/DeathZone" to="." method="_on_death_zone_player_entered"]
+[node name="Enemy" parent="." instance=ExtResource("7_3eilj")]
+position = Vector2(372, 397)
