@@ -152,8 +152,25 @@ func respawn():
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	match area.collision_layer:
 		8: # enemy_hitbox
-			respawn()
+			hit_enemy(area)
 		32: # water
 			respawn()
-		
-		
+
+func hit_enemy(area: Area2D):
+	if velocity.y > 0:
+		cause_damage(area)
+	else:
+		print("morreu")
+
+func cause_damage(area: Area2D):
+	var enemy_node = area.get_parent()
+	
+	if enemy_node == null:
+		push_warning("Enemy node not found")
+		return
+	
+	if !enemy_node.has_method("take_damage"):
+		push_warning("Func not found (take_damage)")
+		return
+	
+	enemy_node.take_damage()
