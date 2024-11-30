@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbrlp3m3xi3dg"]
+
+[ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy.tscn" id="1_xktji"]
+[ext_resource type="Texture2D" uid="uid://d04odkhrdt8dg" path="res://sprites/fly_1.png" id="2_3syeh"]
+[ext_resource type="Script" path="res://scripts/fly_enemy.gd" id="2_g6ajv"]
+[ext_resource type="Texture2D" uid="uid://c7cydsm50vvpq" path="res://sprites/fly_2.png" id="3_w6n5s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o84ii"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3syeh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w6n5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 25.0
+}]
+
+[node name="Enemy" instance=ExtResource("1_xktji")]
+script = ExtResource("2_g6ajv")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="2"]
+sprite_frames = SubResource("SpriteFrames_o84ii")
+autoplay = "default"
+frame_progress = 0.432367
