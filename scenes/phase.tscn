@@ -334,8 +334,13 @@ position = Vector2(920, 408)
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
 
-[node name="Enemy" parent="." instance=ExtResource("6_31hqu")]
+[node name="Crawling" parent="." instance=ExtResource("6_31hqu")]
 position = Vector2(456, 344)
 
-[node name="Enemy2" parent="." instance=ExtResource("6_r0f0e")]
+[node name="Fly" parent="." instance=ExtResource("6_r0f0e")]
 position = Vector2(360, 312)
+h_range = 100.0
+h_speed = 1.0
+v_oscillation = true
+v_range = 20.0
+v_speed = 3.2

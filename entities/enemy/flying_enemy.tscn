@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/fly_enemy.gd" id="2_g6ajv"]
 [ext_resource type="Texture2D" uid="uid://c7cydsm50vvpq" path="res://sprites/fly_2.png" id="3_w6n5s"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o84ii"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3l1j"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -16,13 +16,13 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 25.0
+"speed": 20.0
 }]
 
 [node name="Enemy" instance=ExtResource("1_xktji")]
 script = ExtResource("2_g6ajv")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
-sprite_frames = SubResource("SpriteFrames_o84ii")
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_y3l1j")
 autoplay = "default"
-frame_progress = 0.432367
+frame_progress = 0.401332
