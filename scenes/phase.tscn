@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
 [ext_resource type="Texture2D" uid="uid://ivms13rjeykx" path="res://sprites/tiles_spritesheet.png" id="2_6n70k"]
 [ext_resource type="PackedScene" uid="uid://5rgmrnka8y3c" path="res://entities/player.tscn" id="3_nqrv7"]
-[ext_resource type="PackedScene" uid="uid://bbrlp3m3xi3dg" path="res://entities/flying_enemy.tscn" id="6_r0f0e"]
+[ext_resource type="PackedScene" uid="uid://blp3uso27n4ci" path="res://entities/enemy/crawling_enemy.tscn" id="6_31hqu"]
+[ext_resource type="PackedScene" uid="uid://bbrlp3m3xi3dg" path="res://entities/enemy/flying_enemy.tscn" id="6_r0f0e"]
 [ext_resource type="PackedScene" uid="uid://nb2pk5clhgbv" path="res://entities/checkpoint.tscn" id="6_r62uk"]
-[ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy.tscn" id="7_3eilj"]
 
 [sub_resource type="Animation" id="Animation_15nwx"]
 length = 0.001
@@ -261,7 +261,7 @@ texture_region_size = Vector2i(70, 70)
 [sub_resource type="TileSet" id="TileSet_xi1i5"]
 tile_size = Vector2i(70, 70)
 physics_layer_0/collision_layer = 16
-physics_layer_0/collision_mask = 0
+physics_layer_0/collision_mask = 5
 sources/0 = SubResource("TileSetAtlasSource_dor0i")
 
 [node name="Phase" type="Node2D"]
@@ -334,8 +334,8 @@ position = Vector2(920, 408)
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
 
-[node name="Enemy" parent="." instance=ExtResource("7_3eilj")]
-position = Vector2(372, 397)
+[node name="Enemy" parent="." instance=ExtResource("6_31hqu")]
+position = Vector2(456, 344)
 
 [node name="Enemy2" parent="." instance=ExtResource("6_r0f0e")]
-position = Vector2(472, 328)
+position = Vector2(360, 312)

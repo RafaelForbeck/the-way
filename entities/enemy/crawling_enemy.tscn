@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://blp3uso27n4ci"]
+
+[ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy/enemy.tscn" id="1_78gqc"]
+[ext_resource type="Texture2D" uid="uid://cppacb4bk6bvc" path="res://sprites/slimeWalk1.png" id="2_4k1qd"]
+[ext_resource type="Script" path="res://scripts/crawling_enemy.gd" id="2_td8dd"]
+[ext_resource type="Texture2D" uid="uid://d02vmpk7awvao" path="res://sprites/slimeWalk2.png" id="3_kugye"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i3sw4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_4k1qd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_kugye")
+}],
+"loop": true,
+"name": &"default",
+"speed": 6.0
+}]
+
+[node name="Enemy" instance=ExtResource("1_78gqc")]
+script = ExtResource("2_td8dd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_i3sw4")
+autoplay = "default"
+frame_progress = 0.0402301
