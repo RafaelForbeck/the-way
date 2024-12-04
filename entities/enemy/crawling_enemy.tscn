@@ -22,7 +22,7 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e14mn"]
 height = 46.63
 
-[node name="Enemy" instance=ExtResource("1_78gqc")]
+[node name="CrawlingEnemy" instance=ExtResource("1_78gqc")]
 script = ExtResource("2_td8dd")
 
 [node name="AnimatedSprite2D" parent="." index="0"]
