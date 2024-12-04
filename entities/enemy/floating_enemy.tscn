@@ -1,8 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbrlp3m3xi3dg"]
+[gd_scene load_steps=7 format=3 uid="uid://bbrlp3m3xi3dg"]
 
 [ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy/enemy.tscn" id="1_xktji"]
 [ext_resource type="Texture2D" uid="uid://d04odkhrdt8dg" path="res://sprites/fly_1.png" id="2_3syeh"]
-[ext_resource type="Script" path="res://scripts/fly_enemy.gd" id="2_g6ajv"]
+[ext_resource type="Script" path="res://scripts/floating_enemy.gd" id="2_g6ajv"]
 [ext_resource type="Texture2D" uid="uid://c7cydsm50vvpq" path="res://sprites/fly_2.png" id="3_w6n5s"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_y3l1j"]
@@ -19,6 +19,10 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_enrcb"]
+radius = 24.0
+height = 156.0
+
 [node name="Enemy" instance=ExtResource("1_xktji")]
 script = ExtResource("2_g6ajv")
 
@@ -26,3 +30,13 @@ script = ExtResource("2_g6ajv")
 sprite_frames = SubResource("SpriteFrames_y3l1j")
 autoplay = "default"
 frame_progress = 0.401332
+
+[node name="Hitbox" parent="." index="1"]
+position = Vector2(0, 5)
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_enrcb")
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 5)

@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
 [ext_resource type="Texture2D" uid="uid://ivms13rjeykx" path="res://sprites/tiles_spritesheet.png" id="2_6n70k"]
 [ext_resource type="PackedScene" uid="uid://5rgmrnka8y3c" path="res://entities/player.tscn" id="3_nqrv7"]
-[ext_resource type="PackedScene" uid="uid://blp3uso27n4ci" path="res://entities/enemy/crawling_enemy.tscn" id="6_31hqu"]
-[ext_resource type="PackedScene" uid="uid://bbrlp3m3xi3dg" path="res://entities/enemy/flying_enemy.tscn" id="6_r0f0e"]
+[ext_resource type="PackedScene" uid="uid://bbrlp3m3xi3dg" path="res://entities/enemy/floating_enemy.tscn" id="6_r0f0e"]
 [ext_resource type="PackedScene" uid="uid://nb2pk5clhgbv" path="res://entities/checkpoint.tscn" id="6_r62uk"]
+[ext_resource type="PackedScene" uid="uid://cmqqewqoerpqd" path="res://entities/enemy/lava_floating_enemy.tscn" id="6_xmd8t"]
 
 [sub_resource type="Animation" id="Animation_15nwx"]
 length = 0.001
@@ -334,13 +334,18 @@ position = Vector2(920, 408)
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
 
-[node name="Crawling" parent="." instance=ExtResource("6_31hqu")]
-position = Vector2(456, 344)
-
-[node name="Fly" parent="." instance=ExtResource("6_r0f0e")]
-position = Vector2(360, 312)
-h_range = 100.0
+[node name="Enemy" parent="." instance=ExtResource("6_r0f0e")]
+position = Vector2(384, 296)
+h_oscillation = true
+h_range = 200.0
 h_speed = 1.0
 v_oscillation = true
-v_range = 20.0
-v_speed = 3.2
+v_range = 50.0
+v_speed = 1.2
+
+[node name="Enemy2" parent="." instance=ExtResource("6_xmd8t")]
+position = Vector2(596, 498)
+is_imortal = true
+v_oscillation = true
+v_range = 100.0
+v_speed = 1.0

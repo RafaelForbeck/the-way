@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://blp3uso27n4ci"]
+[gd_scene load_steps=7 format=3 uid="uid://blp3uso27n4ci"]
 
 [ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy/enemy.tscn" id="1_78gqc"]
 [ext_resource type="Texture2D" uid="uid://cppacb4bk6bvc" path="res://sprites/slimeWalk1.png" id="2_4k1qd"]
@@ -19,6 +19,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e14mn"]
+height = 46.63
+
 [node name="Enemy" instance=ExtResource("1_78gqc")]
 script = ExtResource("2_td8dd")
 
@@ -26,3 +29,13 @@ script = ExtResource("2_td8dd")
 sprite_frames = SubResource("SpriteFrames_8unrg")
 autoplay = "default"
 frame_progress = 0.118412
+
+[node name="Hitbox" parent="." index="1"]
+position = Vector2(0, 3)
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_e14mn")
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(-0.5, 10)

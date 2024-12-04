@@ -157,12 +157,10 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 			respawn()
 
 func hit_enemy(area: Area2D):
-	if velocity.y > 0:
-		cause_damage(area)
-	else:
-		print("morreu")
-
-func cause_damage(area: Area2D):
+	if velocity.y <= 0:
+		go_to_hurted_state()
+		return
+	
 	var enemy_node = area.get_parent()
 	
 	if enemy_node == null:
@@ -172,5 +170,14 @@ func cause_damage(area: Area2D):
 	if !enemy_node.has_method("take_damage"):
 		push_warning("Func not found (take_damage)")
 		return
-	
+		
+	if !enemy_node.has_method("get_is_imortal"):
+		push_warning("Func not found (get_is_imortal)")
+		return
+		
+	if enemy_node.get_is_imortal():
+		go_to_hurted_state()
+		return
+		
 	enemy_node.take_damage()
+	
