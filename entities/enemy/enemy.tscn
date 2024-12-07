@@ -16,6 +16,7 @@ collision_mask = 16
 script = ExtResource("1_uaxqd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
 sprite_frames = SubResource("SpriteFrames_30gqq")
 
 [node name="Hitbox" type="Area2D" parent="."]

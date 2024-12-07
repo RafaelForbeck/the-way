@@ -24,6 +24,7 @@ radius = 14.7539
 [node name="FlyFloatingEnemy" instance=ExtResource("1_x2th6")]
 
 [node name="AnimatedSprite2D" parent="." index="0"]
+z_index = 0
 sprite_frames = SubResource("SpriteFrames_l6kxn")
 frame_progress = 0.775252
 

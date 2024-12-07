@@ -25,15 +25,6 @@ func _physics_process(delta: float) -> void:
 		
 	direction = Input.get_axis("move_left", "move_right")
 	
-	if velocity.x > 0:
-		anim.flip_h = false
-	elif velocity.x < 0:
-		anim.flip_h = true
-	elif direction < 0:
-		anim.flip_h = true
-	elif direction > 0:
-		anim.flip_h = false
-	
 	match status:
 		PlayerState.IDLE:
 			idle_state(delta)
@@ -47,6 +38,8 @@ func _physics_process(delta: float) -> void:
 			hurted_state(delta)
 
 	move_and_slide()
+
+# Go to state funcions
 
 func go_to_idle_state():
 	status = PlayerState.IDLE
@@ -77,11 +70,19 @@ func exit_from_ducking_state():
 	
 func go_to_hurted_state():
 	status = PlayerState.HURTED
+	collisionShape.shape.height = 42
 	anim.play("hurted")
+	
+func exit_from_hurted_state():
+	collisionShape.shape.height = 82
+	
+# Update state funcions
 	
 func idle_state(delta):
 	
 	decelerate(delta)
+	
+	set_h_flip()
 	
 	if Input.is_action_just_pressed("jump"):
 		go_to_jumping_state()
@@ -98,6 +99,7 @@ func idle_state(delta):
 func walking_state(delta):
 	
 	move(delta)
+	set_h_flip()
 	
 	if Input.is_action_just_pressed("jump"):
 		go_to_jumping_state()
@@ -112,7 +114,9 @@ func walking_state(delta):
 		return
 
 func jumping_state(delta):
+	
 	move(delta)
+	set_h_flip()
 	
 	if is_on_floor():
 		if direction == 0:
@@ -122,13 +126,28 @@ func jumping_state(delta):
 		return
 
 func ducking_state(delta):
+	
 	decelerate(delta)
+	set_h_flip()
+	
 	if not Input.is_action_pressed("duck"):
 		exit_from_ducking_state()
 		go_to_idle_state()
 		
 func hurted_state(delta):
 	decelerate(delta)
+		
+# Private funcs
+		
+func set_h_flip():
+	if velocity.x > 0:
+		anim.flip_h = false
+	elif velocity.x < 0:
+		anim.flip_h = true
+	elif direction < 0:
+		anim.flip_h = true
+	elif direction > 0:
+		anim.flip_h = false
 		
 func move(delta):
 	if direction != 0:
