@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=4 uid="uid://b7jrexi7jbhxl"]
+[gd_scene load_steps=18 format=4 uid="uid://b7jrexi7jbhxl"]
 
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_e04he"]
 [ext_resource type="Texture2D" uid="uid://ivms13rjeykx" path="res://sprites/tiles_spritesheet.png" id="2_6n70k"]
 [ext_resource type="PackedScene" uid="uid://5rgmrnka8y3c" path="res://entities/player.tscn" id="3_nqrv7"]
 [ext_resource type="PackedScene" uid="uid://blp3uso27n4ci" path="res://entities/enemy/crawling_enemy.tscn" id="5_bevv6"]
@@ -266,6 +267,7 @@ physics_layer_0/collision_mask = 5
 sources/0 = SubResource("TileSetAtlasSource_dor0i")
 
 [node name="Phase" type="Node2D"]
+script = ExtResource("1_e04he")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 offset = Vector2(0, 50)
@@ -356,3 +358,9 @@ is_imortal = true
 v_oscillation = true
 v_range = 100.0
 v_speed = 1.0
+
+[node name="RespawnDelay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
+[connection signal="timeout" from="RespawnDelay" to="." method="_on_respawn_delay_timeout"]

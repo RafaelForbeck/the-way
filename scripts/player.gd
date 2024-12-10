@@ -2,6 +2,8 @@ class_name Player extends CharacterBody2D
 
 enum PlayerState { IDLE, WALKING, JUMPING, DUCKING, HURTED }
 
+signal player_death()
+
 @onready var anim = $AnimatedSprite2D
 @onready var collisionShape = $CollisionShape2D
 @onready var hitBox = $Hitbox/CollisionShape2D
@@ -51,7 +53,7 @@ func go_to_walking_state():
 	
 func go_to_jumping_state():
 	status = PlayerState.JUMPING
-	velocity.y = jump_velocity
+	jump()
 	anim.play("jumping")
 	
 func go_to_ducking_state():
@@ -71,7 +73,9 @@ func exit_from_ducking_state():
 func go_to_hurted_state():
 	status = PlayerState.HURTED
 	collisionShape.shape.height = 42
+	jump()
 	anim.play("hurted")
+	emit_signal("player_death")
 	
 func exit_from_hurted_state():
 	collisionShape.shape.height = 82
@@ -138,6 +142,9 @@ func hurted_state(delta):
 	decelerate(delta)
 		
 # Private funcs
+
+func jump():
+	velocity.y = jump_velocity
 		
 func set_h_flip():
 	if velocity.x > 0:
@@ -165,15 +172,20 @@ func player_dead():
 	go_to_hurted_state()
 	
 func respawn():
+	exit_from_hurted_state()
 	position = GameManager.get_respawn_point()
-	go_to_jumping_state()
+	go_to_idle_state()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
+	
+	if status == PlayerState.HURTED:
+		return
+	
 	match area.collision_layer:
 		8: # enemy_hitbox
 			hit_enemy(area)
-		32: # water
-			respawn()
+		32: # death_zone
+			go_to_hurted_state()
 
 func hit_enemy(area: Area2D):
 	if velocity.y <= 0:
@@ -199,4 +211,3 @@ func hit_enemy(area: Area2D):
 		return
 		
 	enemy_node.take_damage()
-	

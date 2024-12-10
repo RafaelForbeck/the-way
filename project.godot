@@ -61,7 +61,7 @@ duck={
 2d_physics/layer_3="enemy_body"
 2d_physics/layer_4="enemy_hitbox"
 2d_physics/layer_5="world"
-2d_physics/layer_6="water"
+2d_physics/layer_6="death_zone"
 2d_physics/layer_7="checkpoint"
 
 [physics]
