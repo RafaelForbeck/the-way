@@ -4,6 +4,7 @@ enum PlayerState { IDLE, WALKING, JUMPING, DUCKING, HURTED }
 
 signal player_death()
 
+@onready var explosion_timer: Timer = $ExplosionTimer
 @onready var anim = $AnimatedSprite2D
 @onready var collisionShape = $CollisionShape2D
 @onready var hitBox = $Hitbox/CollisionShape2D
@@ -12,6 +13,8 @@ signal player_death()
 @export var deceleration = 1200.0
 @export var acceleration = 1600.0
 @export var jump_velocity = -600.0
+@export var explosion_primary_color: Color
+@export var explosion_secondary_color: Color
 
 var status :PlayerState
 var direction = 0
@@ -73,9 +76,9 @@ func exit_from_ducking_state():
 func go_to_hurted_state():
 	status = PlayerState.HURTED
 	collisionShape.shape.height = 42
-	jump()
 	anim.play("hurted")
 	emit_signal("player_death")
+	explosion_timer.start()
 	
 func exit_from_hurted_state():
 	collisionShape.shape.height = 82
@@ -174,6 +177,7 @@ func player_dead():
 func respawn():
 	exit_from_hurted_state()
 	position = GameManager.get_respawn_point()
+	visible = true
 	go_to_idle_state()
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
@@ -189,6 +193,7 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 
 func hit_enemy(area: Area2D):
 	if velocity.y <= 0:
+		jump()
 		go_to_hurted_state()
 		return
 	
@@ -207,7 +212,12 @@ func hit_enemy(area: Area2D):
 		return
 		
 	if enemy_node.get_is_imortal():
+		jump()
 		go_to_hurted_state()
 		return
 		
 	enemy_node.take_damage()
+
+func _on_explosion_timer_timeout() -> void:
+	ExplosionManager.create_emplosion(position, explosion_primary_color, explosion_secondary_color)
+	visible = false

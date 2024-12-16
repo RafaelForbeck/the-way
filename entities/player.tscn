@@ -86,6 +86,8 @@ size = Vector2(36, 82)
 scale = Vector2(0.5, 0.5)
 collision_mask = 16
 script = ExtResource("1_57enj")
+explosion_primary_color = Color(0.435294, 0.768627, 0.662745, 1)
+explosion_secondary_color = Color(1, 1, 1, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_n1v54")
@@ -110,4 +112,9 @@ position = Vector2(0, 7)
 shape = SubResource("RectangleShape2D_oeelp")
 debug_color = Color(0.898626, 0.000182512, 0.76833, 0.42)
 
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]

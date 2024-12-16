@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0f0siit825f7"]
+
+[ext_resource type="Script" path="res://scripts/particles_explosion.gd" id="1_4fxow"]
+[ext_resource type="Texture2D" uid="uid://c1uax1b35y6pb" path="res://sprites/circle_particle.png" id="1_aswpr"]
+
+[sub_resource type="Curve" id="Curve_54bgf"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.224102), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_11fvr"]
+curve = SubResource("Curve_54bgf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g4r1g"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 258.91
+initial_velocity_max = 487.32
+gravity = Vector3(0, 98, 0)
+scale_min = 0.4
+scale_max = 0.7
+scale_curve = SubResource("CurveTexture_11fvr")
+turbulence_enabled = true
+
+[node name="ParticleExplosion" type="Node2D"]
+z_index = 1
+script = ExtResource("1_4fxow")
+
+[node name="PrimaryParticles" type="GPUParticles2D" parent="."]
+modulate = Color(0.435294, 0.768627, 0.662745, 1)
+z_index = 1
+process_material = SubResource("ParticleProcessMaterial_g4r1g")
+texture = ExtResource("1_aswpr")
+explosiveness = 1.0
+
+[node name="SecondaryParticles" type="GPUParticles2D" parent="."]
+z_index = 1
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_g4r1g")
+texture = ExtResource("1_aswpr")
+explosiveness = 1.0
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
