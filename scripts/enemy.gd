@@ -12,6 +12,9 @@ class_name Enemy extends CharacterBody2D
 @export var v_range: float
 @export var v_speed: float
 
+@export var explosion_primary_color: Color
+@export var explosion_secondary_color: Color
+
 var h_timer := 0.0
 var v_timer := 0.0
 
@@ -40,7 +43,8 @@ func move(delta):
 		global_position.y = start_position.y + sin(v_timer) * v_range
 
 func take_damage():
-	print("enemy died")
+	get_parent().remove_child(self)
+	ExplosionManager.create_emplosion(position, explosion_primary_color, explosion_secondary_color)
 
 func get_is_imortal() -> bool:
 	return is_imortal

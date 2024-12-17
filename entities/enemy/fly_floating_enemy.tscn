@@ -22,6 +22,8 @@ animations = [{
 radius = 14.7539
 
 [node name="FlyFloatingEnemy" instance=ExtResource("1_x2th6")]
+explosion_primary_color = Color(0.391185, 0.391185, 0.391185, 1)
+explosion_secondary_color = Color(1, 1, 1, 1)
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 z_index = 0

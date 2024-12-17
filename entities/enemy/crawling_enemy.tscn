@@ -24,8 +24,11 @@ height = 46.63
 
 [node name="CrawlingEnemy" instance=ExtResource("1_78gqc")]
 script = ExtResource("2_td8dd")
+explosion_primary_color = Color(0.933207, 0.642973, 0.965241, 1)
+explosion_secondary_color = Color(0.878838, 0.42531, 0.929621, 1)
 
 [node name="AnimatedSprite2D" parent="." index="0"]
+z_index = 0
 sprite_frames = SubResource("SpriteFrames_8unrg")
 autoplay = "default"
 frame_progress = 0.118412

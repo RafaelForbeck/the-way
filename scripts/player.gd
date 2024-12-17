@@ -211,8 +211,9 @@ func hit_enemy(area: Area2D):
 		push_warning("Func not found (get_is_imortal)")
 		return
 		
+	jump()
+	
 	if enemy_node.get_is_imortal():
-		jump()
 		go_to_hurted_state()
 		return
 		
