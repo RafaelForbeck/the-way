@@ -337,13 +337,18 @@ position = Vector2(920, 408)
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
 
-[node name="CrawlingEnemy" parent="." instance=ExtResource("5_bevv6")]
+[node name="RespawnDelay" type="Timer" parent="."]
+one_shot = true
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="CrawlingEnemy" parent="Enemies" instance=ExtResource("5_bevv6")]
 position = Vector2(412, 396)
 h_oscillation = true
 h_range = 100.0
 h_speed = 1.2
 
-[node name="FlyFloatingEnemy" parent="." instance=ExtResource("6_x04kf")]
+[node name="FlyFloatingEnemy" parent="Enemies" instance=ExtResource("6_x04kf")]
 position = Vector2(487, 330)
 h_oscillation = true
 h_range = 100.0
@@ -352,15 +357,12 @@ v_oscillation = true
 v_range = 50.0
 v_speed = 2.0
 
-[node name="LavaFloatingEnemy" parent="." instance=ExtResource("7_25bwo")]
+[node name="LavaFloatingEnemy" parent="Enemies" instance=ExtResource("7_25bwo")]
 position = Vector2(595, 515)
 is_imortal = true
 v_oscillation = true
 v_range = 100.0
 v_speed = 1.0
-
-[node name="RespawnDelay" type="Timer" parent="."]
-one_shot = true
 
 [connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="RespawnDelay" to="." method="_on_respawn_delay_timeout"]

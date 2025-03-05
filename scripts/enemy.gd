@@ -43,8 +43,17 @@ func move(delta):
 		global_position.y = start_position.y + sin(v_timer) * v_range
 
 func take_damage():
-	get_parent().remove_child(self)
+	disabelNode()
 	ExplosionManager.create_emplosion(position, explosion_primary_color, explosion_secondary_color)
 
 func get_is_imortal() -> bool:
 	return is_imortal
+	
+func disabelNode():
+	self.process_mode = Node.PROCESS_MODE_DISABLED
+	self.visible = false
+	
+func enableNode():
+	self.process_mode = Node.PROCESS_MODE_INHERIT
+	self.visible = true
+	
