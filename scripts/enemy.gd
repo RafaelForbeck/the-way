@@ -48,7 +48,10 @@ func take_damage():
 
 func get_is_imortal() -> bool:
 	return is_imortal
-	
+
+func respawn():
+	enableNode()
+		
 func disabelNode():
 	self.process_mode = Node.PROCESS_MODE_DISABLED
 	self.visible = false
@@ -56,4 +59,3 @@ func disabelNode():
 func enableNode():
 	self.process_mode = Node.PROCESS_MODE_INHERIT
 	self.visible = true
-	

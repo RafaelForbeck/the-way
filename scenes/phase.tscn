@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://b7jrexi7jbhxl"]
+[gd_scene load_steps=19 format=4 uid="uid://b7jrexi7jbhxl"]
 
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_e04he"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://5rgmrnka8y3c" path="res://entities/player.tscn" id="3_nqrv7"]
 [ext_resource type="PackedScene" uid="uid://blp3uso27n4ci" path="res://entities/enemy/crawling_enemy.tscn" id="5_bevv6"]
 [ext_resource type="PackedScene" uid="uid://nb2pk5clhgbv" path="res://entities/checkpoint.tscn" id="6_r62uk"]
+[ext_resource type="Script" path="res://scripts/enemies.gd" id="6_uunq5"]
 [ext_resource type="PackedScene" uid="uid://cqhiylx5iqo5t" path="res://entities/enemy/fly_floating_enemy.tscn" id="6_x04kf"]
 [ext_resource type="PackedScene" uid="uid://62la67es3kfn" path="res://entities/enemy/lava_floating_enemy.tscn" id="7_25bwo"]
 
@@ -341,14 +342,15 @@ position = Vector2(208, 384)
 one_shot = true
 
 [node name="Enemies" type="Node" parent="."]
+script = ExtResource("6_uunq5")
 
-[node name="CrawlingEnemy" parent="Enemies" instance=ExtResource("5_bevv6")]
+[node name="CrawlingEnemy" parent="Enemies" groups=["enemies"] instance=ExtResource("5_bevv6")]
 position = Vector2(412, 396)
 h_oscillation = true
 h_range = 100.0
 h_speed = 1.2
 
-[node name="FlyFloatingEnemy" parent="Enemies" instance=ExtResource("6_x04kf")]
+[node name="FlyFloatingEnemy" parent="Enemies" groups=["enemies"] instance=ExtResource("6_x04kf")]
 position = Vector2(487, 330)
 h_oscillation = true
 h_range = 100.0
@@ -357,7 +359,7 @@ v_oscillation = true
 v_range = 50.0
 v_speed = 2.0
 
-[node name="LavaFloatingEnemy" parent="Enemies" instance=ExtResource("7_25bwo")]
+[node name="LavaFloatingEnemy" parent="Enemies" groups=["enemies"] instance=ExtResource("7_25bwo")]
 position = Vector2(595, 515)
 is_imortal = true
 v_oscillation = true

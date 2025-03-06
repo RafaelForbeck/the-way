@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0f0siit825f7"]
+[gd_scene load_steps=6 format=3 uid="uid://cef8jx7j33sh3"]
 
 [ext_resource type="Script" path="res://scripts/particles_explosion.gd" id="1_4fxow"]
 [ext_resource type="Texture2D" uid="uid://c1uax1b35y6pb" path="res://sprites/circle_particle.png" id="1_aswpr"]
@@ -28,15 +28,19 @@ script = ExtResource("1_4fxow")
 [node name="PrimaryParticles" type="GPUParticles2D" parent="."]
 modulate = Color(0.435294, 0.768627, 0.662745, 1)
 z_index = 1
+emitting = false
 process_material = SubResource("ParticleProcessMaterial_g4r1g")
 texture = ExtResource("1_aswpr")
+one_shot = true
 explosiveness = 1.0
 
 [node name="SecondaryParticles" type="GPUParticles2D" parent="."]
 z_index = 1
+emitting = false
 amount = 4
 process_material = SubResource("ParticleProcessMaterial_g4r1g")
 texture = ExtResource("1_aswpr")
+one_shot = true
 explosiveness = 1.0
 
 [node name="Timer" type="Timer" parent="."]
