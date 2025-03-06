@@ -7,11 +7,13 @@ extends Node2D
 
 var primary_color: Color
 var secondary_color: Color
+var pop_pitch: float
 
 func _ready() -> void:
 	timer.start(primary_particles.lifetime)
 	setup_particles(primary_particles, primary_color)
 	setup_particles(secondary_particles, secondary_color)
+	pop_effect.pitch_scale = pop_pitch
 	
 func _on_timer_timeout() -> void:
 	queue_free()
@@ -19,6 +21,9 @@ func _on_timer_timeout() -> void:
 func set_colors(primary: Color, secondary: Color):
 	primary_color = primary
 	secondary_color = secondary
+	
+func set_pitch(pitch: float):
+	pop_pitch = pitch
 
 func setup_particles(particles: GPUParticles2D, color: Color):
 	particles.emitting = true

@@ -220,5 +220,10 @@ func hit_enemy(area: Area2D):
 	enemy_node.take_damage()
 
 func _on_explosion_timer_timeout() -> void:
-	ExplosionManager.create_emplosion(position, explosion_primary_color, explosion_secondary_color)
+	ExplosionManager.create_emplosion(
+		position,
+		explosion_primary_color,
+		explosion_secondary_color,
+		1.0)
+	
 	visible = false

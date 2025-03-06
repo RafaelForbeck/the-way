@@ -349,6 +349,7 @@ position = Vector2(412, 396)
 h_oscillation = true
 h_range = 100.0
 h_speed = 1.2
+pop_pitch = 0.8
 
 [node name="FlyFloatingEnemy" parent="Enemies" groups=["enemies"] instance=ExtResource("6_x04kf")]
 position = Vector2(487, 330)
@@ -358,6 +359,7 @@ h_speed = 1.0
 v_oscillation = true
 v_range = 50.0
 v_speed = 2.0
+pop_pitch = 1.2
 
 [node name="LavaFloatingEnemy" parent="Enemies" groups=["enemies"] instance=ExtResource("7_25bwo")]
 position = Vector2(595, 515)

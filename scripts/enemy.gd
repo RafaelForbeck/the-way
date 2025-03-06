@@ -14,6 +14,7 @@ class_name Enemy extends CharacterBody2D
 
 @export var explosion_primary_color: Color
 @export var explosion_secondary_color: Color
+@export var pop_pitch: float = 1.0
 
 var h_timer := 0.0
 var v_timer := 0.0
@@ -44,7 +45,11 @@ func move(delta):
 
 func take_damage():
 	disabelNode()
-	ExplosionManager.create_emplosion(position, explosion_primary_color, explosion_secondary_color)
+	ExplosionManager.create_emplosion(
+		position,
+		explosion_primary_color,
+		explosion_secondary_color,
+		pop_pitch)
 
 func get_is_imortal() -> bool:
 	return is_imortal
