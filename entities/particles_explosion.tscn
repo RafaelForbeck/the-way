@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cef8jx7j33sh3"]
+[gd_scene load_steps=7 format=3 uid="uid://cef8jx7j33sh3"]
 
 [ext_resource type="Script" path="res://scripts/particles_explosion.gd" id="1_4fxow"]
 [ext_resource type="Texture2D" uid="uid://c1uax1b35y6pb" path="res://sprites/circle_particle.png" id="1_aswpr"]
+[ext_resource type="AudioStream" uid="uid://blbql14wp4t8y" path="res://sounds/pop.mp3" id="3_v752s"]
 
 [sub_resource type="Curve" id="Curve_54bgf"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.224102), 0.0, 0.0, 0, 0]
@@ -45,4 +46,13 @@ explosiveness = 1.0
 
 [node name="Timer" type="Timer" parent="."]
 
+[node name="PopEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_v752s")
+
+[node name="PopDelay" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="PopDelay" to="." method="_on_pop_delay_timeout"]

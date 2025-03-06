@@ -2,8 +2,9 @@ extends Node2D
 
 @onready var primary_particles: GPUParticles2D = $PrimaryParticles
 @onready var secondary_particles: GPUParticles2D = $SecondaryParticles
-
+@onready var pop_effect: AudioStreamPlayer2D = $PopEffect
 @onready var timer: Timer = $Timer
+
 var primary_color: Color
 var secondary_color: Color
 
@@ -23,3 +24,5 @@ func setup_particles(particles: GPUParticles2D, color: Color):
 	particles.emitting = true
 	particles.modulate = color
 	
+func _on_pop_delay_timeout() -> void:
+	pop_effect.play()
