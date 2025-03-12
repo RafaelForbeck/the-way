@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://b7jrexi7jbhxl"]
+[gd_scene load_steps=20 format=4 uid="uid://b7jrexi7jbhxl"]
 
 [ext_resource type="Texture2D" uid="uid://vb38jcwb76ch" path="res://sprites/bg_grasslands.png" id="1_44mud"]
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_e04he"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/enemies.gd" id="6_uunq5"]
 [ext_resource type="PackedScene" uid="uid://cqhiylx5iqo5t" path="res://entities/enemy/fly_floating_enemy.tscn" id="6_x04kf"]
 [ext_resource type="PackedScene" uid="uid://62la67es3kfn" path="res://entities/enemy/lava_floating_enemy.tscn" id="7_25bwo"]
+[ext_resource type="PackedScene" uid="uid://c63jkfobhepr3" path="res://entities/platform.tscn" id="10_2vdjk"]
 
 [sub_resource type="Animation" id="Animation_15nwx"]
 length = 0.001
@@ -337,6 +338,7 @@ position = Vector2(920, 408)
 
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
+jump_velocity = -800.0
 
 [node name="RespawnDelay" type="Timer" parent="."]
 one_shot = true
@@ -367,6 +369,12 @@ is_imortal = true
 v_oscillation = true
 v_range = 100.0
 v_speed = 1.0
+
+[node name="Platform" parent="." instance=ExtResource("10_2vdjk")]
+position = Vector2(296, 331)
+v_oscillation = true
+v_range = 100.0
+v_speed = 2.0
 
 [connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="RespawnDelay" to="." method="_on_respawn_delay_timeout"]

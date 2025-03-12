@@ -86,6 +86,7 @@ size = Vector2(36, 82)
 z_index = 1
 scale = Vector2(0.5, 0.5)
 collision_mask = 16
+platform_on_leave = 2
 script = ExtResource("1_57enj")
 explosion_primary_color = Color(0.435294, 0.768627, 0.662745, 1)
 explosion_secondary_color = Color(1, 1, 1, 1)

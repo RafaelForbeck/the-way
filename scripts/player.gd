@@ -69,9 +69,10 @@ func go_to_ducking_state():
 	
 func exit_from_ducking_state():
 	collisionShape.shape.height = 84
-	collisionShape.position.y = 5
+	collisionShape.position.y = 6
 	hitBox.shape.size.y = 82
 	hitBox.position.y = 7
+	position.y -= 5
 	
 func go_to_hurted_state():
 	status = PlayerState.HURTED
