@@ -338,7 +338,6 @@ position = Vector2(920, 408)
 
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
 position = Vector2(208, 384)
-jump_velocity = -800.0
 
 [node name="RespawnDelay" type="Timer" parent="."]
 one_shot = true
@@ -371,7 +370,7 @@ v_range = 100.0
 v_speed = 1.0
 
 [node name="Platform" parent="." instance=ExtResource("10_2vdjk")]
-position = Vector2(296, 331)
+position = Vector2(274, 163)
 v_oscillation = true
 v_range = 100.0
 v_speed = 2.0
