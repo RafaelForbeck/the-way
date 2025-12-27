@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbrlp3m3xi3dg"]
 
 [ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy/enemy.tscn" id="1_xktji"]
-[ext_resource type="Script" path="res://scripts/floating_enemy.gd" id="2_g6ajv"]
+[ext_resource type="Script" uid="uid://cxjvxp7mhvh1b" path="res://scripts/floating_enemy.gd" id="2_g6ajv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0patw"]
 

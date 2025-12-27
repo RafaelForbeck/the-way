@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dhcixktg8fsa1"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_uaxqd"]
+[ext_resource type="Script" uid="uid://bs8l6qt27othf" path="res://scripts/enemy.gd" id="1_uaxqd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_30gqq"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cef8jx7j33sh3"]
 
-[ext_resource type="Script" path="res://scripts/particles_explosion.gd" id="1_4fxow"]
+[ext_resource type="Script" uid="uid://crw320yfvij7y" path="res://scripts/particles_explosion.gd" id="1_4fxow"]
 [ext_resource type="Texture2D" uid="uid://c1uax1b35y6pb" path="res://sprites/circle_particle.png" id="1_aswpr"]
 [ext_resource type="AudioStream" uid="uid://blbql14wp4t8y" path="res://sounds/pop.mp3" id="3_v752s"]
 
@@ -30,19 +30,19 @@ script = ExtResource("1_4fxow")
 modulate = Color(0.435294, 0.768627, 0.662745, 1)
 z_index = 1
 emitting = false
-process_material = SubResource("ParticleProcessMaterial_g4r1g")
 texture = ExtResource("1_aswpr")
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_g4r1g")
 
 [node name="SecondaryParticles" type="GPUParticles2D" parent="."]
 z_index = 1
 emitting = false
 amount = 4
-process_material = SubResource("ParticleProcessMaterial_g4r1g")
 texture = ExtResource("1_aswpr")
 one_shot = true
 explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_g4r1g")
 
 [node name="Timer" type="Timer" parent="."]
 
@@ -50,7 +50,7 @@ explosiveness = 1.0
 stream = ExtResource("3_v752s")
 
 [node name="PopDelay" type="Timer" parent="."]
-wait_time = 0.2
+wait_time = 0.1
 one_shot = true
 autostart = true
 
