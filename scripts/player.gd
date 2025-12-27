@@ -12,9 +12,14 @@ signal player_death()
 @export var max_speed = 300.0
 @export var deceleration = 1200.0
 @export var acceleration = 1600.0
-@export var jump_velocity = -600.0
+@export var jump_velocity = 600.0
+@export var jump_velocity_increment = 10.0
+@export var max_jump_velocity = 1000.0
 @export var explosion_primary_color: Color
 @export var explosion_secondary_color: Color
+
+@export var max_scale: float = 2
+@export var scale_velocity: float = 0.01
 
 var status :PlayerState
 var direction = 0
@@ -24,6 +29,9 @@ func _ready() -> void:
 	go_to_jumping_state()
 
 func _physics_process(delta: float) -> void:
+	
+	if scale.x < max_scale:
+		scale += scale * delta * scale_velocity
 	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -56,22 +64,24 @@ func go_to_walking_state():
 	
 func go_to_jumping_state():
 	status = PlayerState.JUMPING
+	if jump_velocity < max_jump_velocity:
+		jump_velocity += jump_velocity_increment
 	jump()
 	anim.play("jumping")
 	
 func go_to_ducking_state():
 	status = PlayerState.DUCKING
-	collisionShape.shape.height = 50
-	collisionShape.position.y = 16
-	hitBox.shape.size.y = 50
-	hitBox.position.y = 16
+	collisionShape.shape.height = 60
+	collisionShape.position.y = -30
+	hitBox.shape.size.y = 60
+	hitBox.position.y = 10
 	anim.play("duck")
 	
 func exit_from_ducking_state():
-	collisionShape.shape.height = 84
-	collisionShape.position.y = 5
-	hitBox.shape.size.y = 82
-	hitBox.position.y = 7
+	collisionShape.shape.height = 80
+	collisionShape.position.y = -40
+	hitBox.shape.size.y = 80
+	hitBox.position.y = 0
 	
 func go_to_hurted_state():
 	status = PlayerState.HURTED
@@ -147,7 +157,7 @@ func hurted_state(delta):
 # Private funcs
 
 func jump():
-	velocity.y = jump_velocity
+	velocity.y = -jump_velocity
 		
 func set_h_flip():
 	if velocity.x > 0:
