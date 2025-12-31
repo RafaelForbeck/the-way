@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://5rgmrnka8y3c"]
+[gd_scene load_steps=15 format=3 uid="uid://5rgmrnka8y3c"]
 
 [ext_resource type="Script" uid="uid://lu5vv3rjdwq0" path="res://scripts/player.gd" id="1_57enj"]
 [ext_resource type="Texture2D" uid="uid://fao2kp1qvfch" path="res://sprites/player/duck.png" id="2_r0qw5"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cqrx6eokfmetr" path="res://sprites/player/walk/p1_walk05.png" id="5_6eni2"]
 [ext_resource type="Texture2D" uid="uid://cxsj7ydwic5dg" path="res://sprites/player/walk/p1_walk06.png" id="6_msxq5"]
 [ext_resource type="Texture2D" uid="uid://b720288l3uccd" path="res://sprites/player/walk/p1_walk07.png" id="7_f4r5t"]
+[ext_resource type="AudioStream" uid="uid://c5ar3xs8ec5et" path="res://sounds/pulo.mp3" id="11_x08pd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_n1v54"]
 animations = [{
@@ -123,6 +124,12 @@ wait_time = 0.3
 one_shot = true
 
 [node name="Node2D" type="Node2D" parent="."]
+
+[node name="JumpEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_x08pd")
+
+[node name="SecondJumpEffect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_x08pd")
 
 [connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]

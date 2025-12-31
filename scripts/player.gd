@@ -8,11 +8,13 @@ signal player_death()
 @onready var anim = $AnimatedSprite2D
 @onready var collisionShape = $CollisionShape2D
 @onready var hitBox = $Hitbox/CollisionShape2D
+@onready var jump_effect: AudioStreamPlayer2D = $JumpEffect
+@onready var second_jump_effect: AudioStreamPlayer2D = $SecondJumpEffect
 
 @export var max_speed = 300.0
 @export var deceleration = 1200.0
 @export var acceleration = 1600.0
-@export var jump_velocity = 600.0
+@export var start_jump_velocity = 600
 @export var jump_velocity_increment = 10.0
 @export var second_jump_velocity = 300.0
 @export var second_jump_velocity_increment = 50.0
@@ -23,13 +25,15 @@ signal player_death()
 @export var max_scale: float = 2
 @export var scale_velocity: float = 0.01
 
+var current_jump_velocity = 600.0
 var status :PlayerState
 var direction = 0
 var jump_count = 0
 
 func _ready() -> void:
 	GameManager.update_respawn_point(position)
-	go_to_jumping_state()
+	current_jump_velocity = start_jump_velocity
+	go_to_idle_state()
 
 func _physics_process(delta: float) -> void:
 	
@@ -69,9 +73,9 @@ func go_to_walking_state():
 	
 func go_to_jumping_state():
 	status = PlayerState.JUMPING
-	if jump_velocity < max_jump_velocity:
-		jump_velocity += jump_velocity_increment
+	current_jump_velocity = min(current_jump_velocity + jump_velocity_increment, max_jump_velocity)
 	jump()
+	play_jump_effect()
 	anim.play("jumping")
 	
 func go_to_ducking_state():
@@ -166,7 +170,7 @@ func hurted_state(delta):
 # Private funcs
 
 func jump():
-	velocity.y = -jump_velocity
+	velocity.y = -current_jump_velocity
 	
 func second_jump():
 	if velocity.y < 0: # Se está caindo
@@ -179,9 +183,31 @@ func second_jump():
 		else:
 			velocity.y -= second_jump_velocity
 			
-	second_jump_velocity = min(jump_velocity, second_jump_velocity + second_jump_velocity_increment)
+	second_jump_velocity = min(current_jump_velocity, second_jump_velocity + second_jump_velocity_increment)
+	play_second_jump_effect()
 	jump_count += 1
-		
+
+func play_jump_effect():
+	var range_velocity = max_jump_velocity - start_jump_velocity
+	var current = current_jump_velocity - start_jump_velocity
+	var percent = current / range_velocity
+	var pitch_range = 0.7
+	var start_pitch = 1.2
+	var current_pitch = start_pitch - pitch_range * percent
+	jump_effect.pitch_scale = current_pitch
+	jump_effect.play()
+
+func play_second_jump_effect():
+	var range_velocity = max_jump_velocity
+	var current = second_jump_velocity
+	var percent = current / range_velocity
+	var pitch_range = 0.7
+	var start_pitch = 1.2
+	var current_pitch = start_pitch - pitch_range * percent
+	second_jump_effect.pitch_scale = current_pitch
+	second_jump_effect.volume_linear = percent
+	second_jump_effect.play()
+
 func set_h_flip():
 	if velocity.x > 0:
 		anim.flip_h = false
