@@ -14,6 +14,8 @@ signal player_death()
 @export var acceleration = 1600.0
 @export var jump_velocity = 600.0
 @export var jump_velocity_increment = 10.0
+@export var second_jump_velocity = 300.0
+@export var second_jump_velocity_increment = 50.0
 @export var max_jump_velocity = 1000.0
 @export var explosion_primary_color: Color
 @export var explosion_secondary_color: Color
@@ -23,6 +25,7 @@ signal player_death()
 
 var status :PlayerState
 var direction = 0
+var jump_count = 0
 
 func _ready() -> void:
 	GameManager.update_respawn_point(position)
@@ -57,10 +60,12 @@ func _physics_process(delta: float) -> void:
 func go_to_idle_state():
 	status = PlayerState.IDLE
 	anim.play("idle")
+	jump_count = 0
 	
 func go_to_walking_state():
 	status = PlayerState.WALKING
 	anim.play("walking")
+	jump_count = 0
 	
 func go_to_jumping_state():
 	status = PlayerState.JUMPING
@@ -135,6 +140,10 @@ func jumping_state(delta):
 	move(delta)
 	set_h_flip()
 	
+	if Input.is_action_just_pressed("jump") && jump_count == 0:
+		second_jump()
+		return
+	
 	if is_on_floor():
 		if direction == 0:
 			go_to_idle_state()
@@ -158,6 +167,20 @@ func hurted_state(delta):
 
 func jump():
 	velocity.y = -jump_velocity
+	
+func second_jump():
+	if velocity.y < 0: # Se está caindo
+		if -second_jump_velocity < velocity.y:
+			velocity.y = -second_jump_velocity
+	else: # Se está subindo
+		# Evitar que a soma dos pulos passe da velocidade máxima de pulo 
+		if velocity.y - second_jump_velocity < 0:
+			velocity.y = -second_jump_velocity
+		else:
+			velocity.y -= second_jump_velocity
+			
+	second_jump_velocity = min(jump_velocity, second_jump_velocity + second_jump_velocity_increment)
+	jump_count += 1
 		
 func set_h_flip():
 	if velocity.x > 0:
