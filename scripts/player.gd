@@ -8,8 +8,9 @@ signal player_death()
 @onready var anim = $AnimatedSprite2D
 @onready var collisionShape = $CollisionShape2D
 @onready var hitBox = $Hitbox/CollisionShape2D
-@onready var jump_effect: AudioStreamPlayer2D = $JumpEffect
-@onready var second_jump_effect: AudioStreamPlayer2D = $SecondJumpEffect
+@onready var jump_effect: AudioStreamPlayer2D = $SoundEffects/JumpEffect
+@onready var second_jump_effect: AudioStreamPlayer2D = $SoundEffects/SecondJumpEffect
+@onready var water_effect: AudioStreamPlayer2D = $SoundEffects/WaterEffect
 
 @export var max_speed = 300.0
 @export var deceleration = 1200.0
@@ -97,7 +98,6 @@ func go_to_hurted_state():
 	collisionShape.shape.height = 42
 	anim.play("hurted")
 	emit_signal("player_death")
-	explosion_timer.start()
 	
 func exit_from_hurted_state():
 	collisionShape.shape.height = 82
@@ -230,7 +230,8 @@ func accelerate(delta):
 func decelerate(delta):
 	velocity.x = move_toward(velocity.x, 0, deceleration * delta)
 
-func player_dead():
+func water():
+	water_effect.play()
 	go_to_hurted_state()
 	
 func respawn():
@@ -247,13 +248,16 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 	match area.collision_layer:
 		8: # enemy_hitbox
 			hit_enemy(area)
-		32: # death_zone
+		32: # water
+			water()
+		128: # death zone
 			go_to_hurted_state()
 
 func hit_enemy(area: Area2D):
 	if velocity.y <= 0:
 		jump()
 		go_to_hurted_state()
+		explosion_timer.start()
 		return
 	
 	var enemy_node = area.get_parent()
@@ -274,6 +278,7 @@ func hit_enemy(area: Area2D):
 	
 	if enemy_node.get_is_imortal():
 		go_to_hurted_state()
+		explosion_timer.start()
 		return
 		
 	enemy_node.take_damage()
