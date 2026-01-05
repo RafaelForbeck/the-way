@@ -81,17 +81,11 @@ func go_to_jumping_state():
 	
 func go_to_ducking_state():
 	status = PlayerState.DUCKING
-	collisionShape.shape.height = 60
-	collisionShape.position.y = -30
-	hitBox.shape.size.y = 60
-	hitBox.position.y = 10
+	set_small_collider()
 	anim.play("duck")
 	
 func exit_from_ducking_state():
-	collisionShape.shape.height = 80
-	collisionShape.position.y = -40
-	hitBox.shape.size.y = 80
-	hitBox.position.y = 0
+	set_large_collider()
 	
 func go_to_hurted_state():
 	status = PlayerState.HURTED
@@ -237,8 +231,21 @@ func water():
 func respawn():
 	exit_from_hurted_state()
 	position = GameManager.get_respawn_point()
+	set_large_collider()
 	visible = true
 	go_to_idle_state()
+
+func set_small_collider():
+	collisionShape.shape.height = 60
+	collisionShape.position.y = -30
+	hitBox.shape.size.y = 60
+	hitBox.position.y = 10
+	
+func set_large_collider():
+	collisionShape.shape.height = 80
+	collisionShape.position.y = -40
+	hitBox.shape.size.y = 80
+	hitBox.position.y = 0
 
 func _on_hitbox_area_entered(area: Area2D) -> void:
 	
