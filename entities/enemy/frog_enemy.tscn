@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxucoxxhhlieu"]
+
+[ext_resource type="Script" uid="uid://v6i8uon4dovr" path="res://scripts/frog_enemy.gd" id="1_3754k"]
+[ext_resource type="Texture2D" uid="uid://c152pft5ufba0" path="res://sprites/frog.png" id="1_c6qwe"]
+[ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy/enemy.tscn" id="1_vkmyd"]
+[ext_resource type="Texture2D" uid="uid://ccmva07r4q4fv" path="res://sprites/frog_leap.png" id="2_3754k"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_30ie8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_c6qwe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_3754k")
+}],
+"loop": true,
+"name": &"jumping",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rsfbt"]
+radius = 19.026299
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cjf7e"]
+radius = 19.026299
+
+[node name="FrogEnemy" instance=ExtResource("1_vkmyd")]
+script = ExtResource("1_3754k")
+explosion_primary_color = Color(0.5019608, 0.74509805, 0.12156863, 1)
+explosion_secondary_color = Color(0.25201014, 0.3831012, 0.05476305, 1)
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_30ie8")
+autoplay = "default"
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+shape = SubResource("CircleShape2D_rsfbt")
+
+[node name="CollisionShape2D" parent="." index="2"]
+shape = SubResource("CircleShape2D_cjf7e")
+
+[node name="LeftLimit" type="Sprite2D" parent="." index="3"]
+modulate = Color(1, 1, 1, 0.50980395)
+position = Vector2(-100, 0)
+texture = ExtResource("1_c6qwe")
+
+[node name="RightLimit" type="Sprite2D" parent="." index="4"]
+modulate = Color(1, 1, 1, 0.50980395)
+position = Vector2(100, 0)
+texture = ExtResource("1_c6qwe")
+
+[node name="WaitingTimer" type="Timer" parent="." index="5"]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="WaitingTimer" to="." method="_on_waiting_timer_timeout"]

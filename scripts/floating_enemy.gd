@@ -1,1 +1,1 @@
-class_name FloatingEnemy extends Enemy
+class_name FloatingEnemy extends OscillationEnemy
