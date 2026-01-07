@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxucoxxhhlieu"]
+[gd_scene load_steps=9 format=3 uid="uid://bxucoxxhhlieu"]
 
 [ext_resource type="Script" uid="uid://v6i8uon4dovr" path="res://scripts/frog_enemy.gd" id="1_3754k"]
 [ext_resource type="Texture2D" uid="uid://c152pft5ufba0" path="res://sprites/frog.png" id="1_c6qwe"]
@@ -30,6 +30,9 @@ radius = 19.026299
 [sub_resource type="CircleShape2D" id="CircleShape2D_cjf7e"]
 radius = 19.026299
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30ie8"]
+size = Vector2(240, 260)
+
 [node name="FrogEnemy" instance=ExtResource("1_vkmyd")]
 script = ExtResource("1_3754k")
 explosion_primary_color = Color(0.5019608, 0.74509805, 0.12156863, 1)
@@ -55,8 +58,20 @@ modulate = Color(1, 1, 1, 0.50980395)
 position = Vector2(100, 0)
 texture = ExtResource("1_c6qwe")
 
-[node name="WaitingTimer" type="Timer" parent="." index="5"]
-wait_time = 3.0
-one_shot = true
+[node name="PlayerDetectorLeft" type="ShapeCast2D" parent="." index="5"]
+modulate = Color(1, 1, 1, 0.19215687)
+position = Vector2(-120, 0)
+shape = SubResource("RectangleShape2D_30ie8")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false
 
-[connection signal="timeout" from="WaitingTimer" to="." method="_on_waiting_timer_timeout"]
+[node name="PlayerDetectorRight" type="ShapeCast2D" parent="." index="6"]
+modulate = Color(1, 1, 1, 0.19215687)
+position = Vector2(120, 0)
+shape = SubResource("RectangleShape2D_30ie8")
+target_position = Vector2(0, 0)
+collision_mask = 2
+collide_with_areas = true
+collide_with_bodies = false

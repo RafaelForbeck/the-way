@@ -7,7 +7,8 @@ enum FrogStates {
 
 @onready var left_limit: Sprite2D = $LeftLimit
 @onready var right_limit: Sprite2D = $RightLimit
-@onready var waiting_timer: Timer = $WaitingTimer
+@onready var player_detector_left: ShapeCast2D = $PlayerDetectorLeft
+@onready var player_detector_right: ShapeCast2D = $PlayerDetectorRight
 
 var status: FrogStates
 
@@ -17,7 +18,12 @@ const JUMP_VELOCITY = -800.0
 var left_x_limit: float
 var right_x_limit: float
 
+var beyond_left = false
+var beyond_right = false
+
 var direction: int = 1
+
+var waiting_time = 0
 
 func _ready() -> void:
 	left_limit.visible = false
@@ -35,7 +41,7 @@ func _physics_process(delta: float) -> void:
 	
 	match status:
 		FrogStates.waiting:
-			waiting_state()
+			waiting_state(delta)
 		FrogStates.jumping:
 			jumping_state()
 	
@@ -46,29 +52,48 @@ func go_to_waiting():
 	anim.play("default")
 	velocity.x = 0
 	check_direction()
-	waiting_timer.start()
 	
 func go_to_jump():
 	status = FrogStates.jumping
 	anim.play("jumping")
 	velocity.x = SPEED * direction
 	velocity.y = JUMP_VELOCITY
+	waiting_time = 0
 	
-func waiting_state():
-	pass
+func waiting_state(delta):
+	waiting_time += delta
+	if waiting_time >= 3:
+		go_to_jump()
+		return
+	
+	if player_detector_left.is_colliding() and beyond_left == false:
+		turn_left()
+		
+	if player_detector_right.is_colliding() and beyond_right == false:
+		turn_right()
+
+	if (player_detector_left.is_colliding() or player_detector_right.is_colliding()) and waiting_time > 1:
+		go_to_jump()
+		return
 	
 func jumping_state():
 	if velocity.y == 0:
 		go_to_waiting()
 
 func check_direction():
+	
+	beyond_right = false
+	beyond_left = false
+	
 	if direction > 0:
 		if right_x_limit < global_position.x:
+			beyond_right = true
 			turn_left()
 		else:
 			turn_right()
 	else:
 		if left_x_limit > global_position.x:
+			beyond_left = true
 			turn_right()
 		else:
 			turn_left()
@@ -80,6 +105,3 @@ func turn_right():
 func turn_left():
 	direction = -1
 	anim.flip_h = false
-
-func _on_waiting_timer_timeout() -> void:
-	go_to_jump()
