@@ -43,6 +43,5 @@ func v_move(delta):
 
 func turn(left):
 	direction = -1 if left else 1
-	print(direction)
 	anim.flip_h = true if left else false
 	emit_signal("change_direction")

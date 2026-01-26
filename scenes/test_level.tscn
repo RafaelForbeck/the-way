@@ -270,7 +270,7 @@ physics_layer_0/collision_layer = 16
 physics_layer_0/collision_mask = 5
 sources/0 = SubResource("TileSetAtlasSource_dor0i")
 
-[node name="Phase" type="Node2D"]
+[node name="TestLevel" type="Node2D"]
 script = ExtResource("1_e04he")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -387,6 +387,11 @@ position = Vector2(-407, 0)
 [node name="BeeEnemy" parent="Enemies" instance=ExtResource("11_8hh2t")]
 position = Vector2(3152, 256)
 
+[node name="BeeEnemy2" parent="Enemies" instance=ExtResource("11_8hh2t")]
+position = Vector2(3719, 256)
+h_range = 200.0
+h_speed = 1.0
+
 [node name="Platform" parent="." instance=ExtResource("10_2vdjk")]
 position = Vector2(216, 264)
 v_range = 100.0
@@ -397,3 +402,4 @@ v_speed = 2.0
 
 [editable path="Enemies/FrogEnemy"]
 [editable path="Enemies/BeeEnemy"]
+[editable path="Enemies/BeeEnemy2"]

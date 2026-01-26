@@ -38,8 +38,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	print(global_position)
-	
 	if scale.x < max_scale:
 		scale += scale * delta * scale_velocity
 	
@@ -236,6 +234,7 @@ func respawn():
 	set_large_collider()
 	visible = true
 	go_to_idle_state()
+	go_to_jumping_state()
 
 func set_small_collider():
 	collisionShape.shape.height = 60
