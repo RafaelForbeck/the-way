@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://dttkacbai8qbq" path="res://scripts/enemies.gd" id="5_64w2a"]
 [ext_resource type="PackedScene" uid="uid://blp3uso27n4ci" path="res://entities/enemy/crawling_enemy.tscn" id="6_fpun6"]
 [ext_resource type="PackedScene" uid="uid://cqhiylx5iqo5t" path="res://entities/enemy/fly_floating_enemy.tscn" id="7_wc255"]
-[ext_resource type="PackedScene" uid="uid://cour0tnwcrnby" path="res://entities/enemy/spining_enemy.tscn" id="10_olg7q"]
+[ext_resource type="PackedScene" uid="uid://18gacvry3in7" path="res://entities/enemy/spinner_enemy.tscn" id="9_olg7q"]
 [ext_resource type="PackedScene" uid="uid://c63jkfobhepr3" path="res://entities/platform.tscn" id="11_gunhw"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_t1rx8"]
@@ -348,7 +348,7 @@ debug_color = Color(0, 0.615686, 0.592157, 0.454902)
 position = Vector2(631, 405)
 
 [node name="Player" parent="." instance=ExtResource("4_8iemx")]
-position = Vector2(1869, 328)
+position = Vector2(6823, 208)
 start_jump_velocity = 500
 second_jump_velocity = 0.0
 second_jump_velocity_increment = 10.0
@@ -363,19 +363,30 @@ script = ExtResource("5_64w2a")
 [node name="CrawlingEnemy" parent="Enemies" instance=ExtResource("6_fpun6")]
 position = Vector2(2220, 396)
 
-[node name="OscillationEntity" parent="Enemies/CrawlingEnemy" index="3"]
-h_oscillation = true
-h_range = 50.0
-h_speed = 2.0
-
 [node name="CrawlingEnemy2" parent="Enemies" instance=ExtResource("6_fpun6")]
 position = Vector2(4203, 191)
 
 [node name="FlyFloatingEnemy" parent="Enemies" instance=ExtResource("7_wc255")]
 position = Vector2(4537, 33)
+is_imortal = null
+pop_pitch = null
+h_oscillation = true
+h_range = 210.0
+h_speed = 1.0
+v_oscillation = null
+v_range = null
+v_speed = null
 
 [node name="FlyFloatingEnemy2" parent="Enemies" instance=ExtResource("7_wc255")]
 position = Vector2(4901, 164)
+is_imortal = null
+pop_pitch = null
+h_oscillation = true
+h_range = 120.0
+h_speed = 1.3
+v_oscillation = null
+v_range = null
+v_speed = null
 
 [node name="CrawlingEnemy3" parent="Enemies" instance=ExtResource("6_fpun6")]
 position = Vector2(4898, 257)
@@ -383,17 +394,45 @@ position = Vector2(4898, 257)
 [node name="CrawlingEnemy4" parent="Enemies" instance=ExtResource("6_fpun6")]
 position = Vector2(5363, 397)
 
+[node name="SpinnerEnemy" parent="Enemies" instance=ExtResource("9_olg7q")]
+position = Vector2(5700, 404)
+
+[node name="SpinnerEnemy2" parent="Enemies" instance=ExtResource("9_olg7q")]
+position = Vector2(5900, 404)
+
+[node name="SpinnerEnemy3" parent="Enemies" instance=ExtResource("9_olg7q")]
+position = Vector2(6100, 404)
+
 [node name="FlyFloatingEnemy3" parent="Enemies" instance=ExtResource("7_wc255")]
 position = Vector2(6097, 331)
+is_imortal = null
+pop_pitch = null
+h_oscillation = true
+h_range = 120.0
+h_speed = 1.3
+v_oscillation = null
+v_range = null
+v_speed = null
 
 [node name="FlyFloatingEnemy4" parent="Enemies" instance=ExtResource("7_wc255")]
 position = Vector2(6609, 247)
+is_imortal = null
+pop_pitch = null
+h_oscillation = true
+h_range = 100.0
+h_speed = 1.4
+v_oscillation = null
+v_range = null
+v_speed = null
 
 [node name="CrawlingEnemy5" parent="Enemies" instance=ExtResource("6_fpun6")]
 position = Vector2(6614, 334)
 
-[node name="SpiningEnemy" parent="Enemies" instance=ExtResource("10_olg7q")]
-position = Vector2(6895, 194)
+[node name="SpinnerEnemy4" parent="Enemies" instance=ExtResource("9_olg7q")]
+position = Vector2(6896, 194)
+h_oscillation = true
+h_range = 70.0
+h_speed = 1.0
 
 [node name="Plataformas" type="Node2D" parent="."]
 
@@ -435,7 +474,6 @@ position = Vector2(0, 343)
 [connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="RespawnDelay" to="." method="_on_respawn_delay_timeout"]
 
-[editable path="Enemies/CrawlingEnemy"]
 [editable path="Plataformas/Platform1"]
 [editable path="Plataformas/Platform2"]
 [editable path="Plataformas/Platform3"]

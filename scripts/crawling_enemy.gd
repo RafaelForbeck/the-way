@@ -1,4 +1,4 @@
-class_name CrawlingEnemy extends OscillationEnemy
+class_name CrawlingEnemy extends Enemy
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -6,4 +6,3 @@ func _physics_process(delta: float) -> void:
 		
 	move_and_slide()
 	
-	super._physics_process(delta)

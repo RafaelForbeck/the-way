@@ -9,6 +9,7 @@ func _ready() -> void:
 	var tween = create_tween()
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "global_position", target.global_position, duration)
+	
 	tween.tween_property(self, "global_position", global_position, duration)
 	tween.set_loops()
 	

@@ -27,12 +27,6 @@ size = Vector2(40, 32)
 
 [node name="BeeEnemy" instance=ExtResource("1_c77lp")]
 script = ExtResource("2_uc5d3")
-h_oscillation = true
-h_range = 100.0
-h_speed = 2.0
-v_oscillation = false
-v_range = 0.0
-v_speed = 0.0
 explosion_primary_color = Color(1, 0.8, 0, 1)
 explosion_secondary_color = Color(0.4, 0.4, 0.4, 1)
 
@@ -63,6 +57,6 @@ one_shot = true
 wait_time = 2.0
 one_shot = true
 
-[connection signal="change_direction" from="." to="." method="_on_change_direction"]
 [connection signal="timeout" from="WaitingTimer" to="." method="_on_waiting_timer_timeout"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="change_direction" from="OscillationEntity" to="." method="_on_change_direction"]

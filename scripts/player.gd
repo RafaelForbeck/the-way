@@ -32,7 +32,7 @@ var direction = 0
 var jump_count = 0
 
 func _ready() -> void:
-	GameManager.update_respawn_point(position)
+	GameManager.update_respawn_point(global_position)
 	current_jump_velocity = start_jump_velocity
 	go_to_idle_state()
 

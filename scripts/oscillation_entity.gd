@@ -1,4 +1,4 @@
-class_name OscillationEnemy extends Enemy
+class_name OscillationEntity extends Node2D
 
 @export var h_oscillation: bool
 @export var h_range: float
@@ -8,12 +8,19 @@ class_name OscillationEnemy extends Enemy
 @export var v_range: float
 @export var v_speed: float
 
-signal change_direction
+signal change_direction(new_direction: int)
+
+var parent: Node2D
 
 var h_timer := 0.0
 var v_timer := 0.0
 
+var start_position: Vector2
 var direction = 1
+
+func _ready() -> void:
+	parent = get_parent() as Node2D
+	start_position = parent.global_position
 
 func _physics_process(delta: float) -> void:
 	move(delta)
@@ -34,14 +41,13 @@ func h_move(delta):
 			if direction == -1:
 				turn(false)
 			
-		global_position.x = start_position.x + cos(h_timer) * h_range
+		parent.global_position.x = start_position.x + cos(h_timer) * h_range
 		
 func v_move(delta):
 	if v_oscillation:
 		v_timer += delta * v_speed
-		global_position.y = start_position.y + sin(v_timer) * v_range
+		parent.global_position.y = start_position.y + sin(v_timer) * v_range
 
 func turn(left):
 	direction = -1 if left else 1
-	anim.flip_h = true if left else false
-	emit_signal("change_direction")
+	emit_signal("change_direction", direction)

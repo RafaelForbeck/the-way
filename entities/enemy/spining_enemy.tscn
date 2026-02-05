@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://cour0tnwcrnby"]
+
+[ext_resource type="PackedScene" uid="uid://dhcixktg8fsa1" path="res://entities/enemy/enemy.tscn" id="1_75pdj"]
+[ext_resource type="Texture2D" uid="uid://b11xw0afqho4" path="res://sprites/spinnerHalf-1.png" id="2_ri17e"]
+[ext_resource type="Texture2D" uid="uid://kp7k5dmpu14e" path="res://sprites/spinnerHalf-2.png" id="3_htbw3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hcu52"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ri17e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_htbw3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_htbw3"]
+radius = 29.017237
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_htbw3"]
+size = Vector2(40, 19)
+
+[node name="SpiningEnemy" instance=ExtResource("1_75pdj")]
+is_imortal = true
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_hcu52")
+autoplay = "default"
+frame_progress = 0.80108714
+
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
+position = Vector2(0, 16)
+shape = SubResource("CircleShape2D_htbw3")
+debug_color = Color(0.94093704, 1.0781288e-05, 0.6149996, 0.41960785)
+
+[node name="CollisionShape2D" parent="." index="2"]
+position = Vector2(0, 5.5)
+shape = SubResource("RectangleShape2D_htbw3")

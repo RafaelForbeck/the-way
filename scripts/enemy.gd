@@ -8,10 +8,7 @@ class_name Enemy extends CharacterBody2D
 @export var explosion_secondary_color: Color
 @export var pop_pitch: float = 1.0
 
-var start_position: Vector2
-
-func _ready() -> void:
-	start_position = global_position
+var direction: int = 1
 
 func take_damage():
 	disabelNode()
@@ -34,3 +31,7 @@ func disabelNode():
 func enableNode():
 	self.process_mode = Node.PROCESS_MODE_INHERIT
 	self.visible = true
+
+func _on_oscillation_entity_change_direction(new_direction: int) -> void:
+	direction = new_direction
+	anim.flip_h = true if direction == -1 else false

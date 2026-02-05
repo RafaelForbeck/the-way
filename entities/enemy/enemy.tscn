@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhcixktg8fsa1"]
+[gd_scene load_steps=6 format=3 uid="uid://dhcixktg8fsa1"]
 
 [ext_resource type="Script" uid="uid://bs8l6qt27othf" path="res://scripts/enemy.gd" id="1_uaxqd"]
+[ext_resource type="Script" uid="uid://b4ytljy4lmaj5" path="res://scripts/oscillation_entity.gd" id="2_im2q6"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_30gqq"]
 
@@ -28,3 +29,9 @@ shape = SubResource("RectangleShape2D_1o6u8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_jjxno")
+
+[node name="OscillationEntity" type="Node2D" parent="."]
+script = ExtResource("2_im2q6")
+metadata/_custom_type_script = "uid://b4ytljy4lmaj5"
+
+[connection signal="change_direction" from="OscillationEntity" to="." method="_on_oscillation_entity_change_direction"]

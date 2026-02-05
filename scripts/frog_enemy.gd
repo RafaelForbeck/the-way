@@ -21,8 +21,6 @@ var right_x_limit: float
 var beyond_left = false
 var beyond_right = false
 
-var direction: int = 1
-
 var waiting_time = 0
 
 func _ready() -> void:

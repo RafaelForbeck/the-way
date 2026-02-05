@@ -1,8 +1,9 @@
-class_name BeeEnemy extends OscillationEnemy
+class_name BeeEnemy extends Enemy
 
 @onready var player_detector: RayCast2D = $PlayerDetector
 @onready var waiting_timer: Timer = $WaitingTimer
 @onready var cooldown_timer: Timer = $CooldownTimer
+@onready var oscillation_entity: OscillationEntity = $OscillationEntity
 
 var player_position
 
@@ -27,17 +28,18 @@ func _physics_process(delta: float) -> void:
 
 func go_to_patrol():
 	status = BeeStatus.patrol
+	oscillation_entity.process_mode = Node.PROCESS_MODE_ALWAYS
 	
 func go_to_waiting():
 	status = BeeStatus.waiting
 	waiting_timer.start()
+	oscillation_entity.process_mode = Node.PROCESS_MODE_DISABLED
 	
 func go_to_attacking():
 	status = BeeStatus.attacking
 	attack()
 	
-func patrol(delta):
-	super._physics_process(delta)
+func patrol(_delta):
 	if player_detector.is_colliding() and cooldown == false:
 		cooldown = true
 		cooldown_timer.start()
@@ -51,8 +53,8 @@ func waiting():
 func attacking():
 	pass
 
-func _on_change_direction() -> void:
-	player_detector.target_position.x = abs(player_detector.target_position.x) * -direction
+func _on_change_direction(new_direction) -> void:
+	player_detector.target_position.x = abs(player_detector.target_position.x) * -new_direction
 
 func attack():
 	var initial_position = global_position

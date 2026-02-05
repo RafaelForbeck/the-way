@@ -340,7 +340,7 @@ position = Vector2(808, 408)
 position = Vector2(920, 408)
 
 [node name="Player" parent="." instance=ExtResource("3_nqrv7")]
-position = Vector2(2432, 371)
+position = Vector2(1042, 394)
 second_jump_velocity = 0.0
 second_jump_velocity_increment = 10.0
 
@@ -352,31 +352,26 @@ script = ExtResource("6_uunq5")
 
 [node name="CrawlingEnemy" parent="Enemies" instance=ExtResource("5_bevv6")]
 position = Vector2(976, 396)
-h_oscillation = true
-h_range = 100.0
-h_speed = 1.2
-v_oscillation = false
-v_range = 0.0
-v_speed = 0.0
 
 [node name="FlyFloatingEnemy" parent="Enemies" instance=ExtResource("6_x04kf")]
 position = Vector2(1114, 330)
+
+[node name="OscillationEntity" parent="Enemies/FlyFloatingEnemy" index="3"]
 h_oscillation = true
 h_range = 50.0
-h_speed = 1.0
+h_speed = 2.0
 v_oscillation = true
-v_range = 50.0
-v_speed = 2.0
+v_range = 20.0
+v_speed = 5.0
 
 [node name="LavaFloatingEnemy" parent="Enemies" instance=ExtResource("7_25bwo")]
 position = Vector2(592, 438)
-h_oscillation = false
-h_range = 0.0
-h_speed = 0.0
+is_imortal = true
+
+[node name="OscillationEntity" parent="Enemies/LavaFloatingEnemy" index="3"]
 v_oscillation = true
 v_range = 50.0
 v_speed = 1.0
-is_imortal = true
 
 [node name="FrogEnemy" parent="Enemies" instance=ExtResource("10_48bu1")]
 position = Vector2(1849, 366)
@@ -387,19 +382,23 @@ position = Vector2(-407, 0)
 [node name="BeeEnemy" parent="Enemies" instance=ExtResource("11_8hh2t")]
 position = Vector2(3152, 256)
 
+[node name="OscillationEntity" parent="Enemies/BeeEnemy" index="6"]
+position = Vector2(-1, -1)
+h_oscillation = true
+h_range = 50.0
+h_speed = 2.0
+
 [node name="BeeEnemy2" parent="Enemies" instance=ExtResource("11_8hh2t")]
 position = Vector2(3719, 256)
-h_range = 200.0
-h_speed = 1.0
 
 [node name="Platform" parent="." instance=ExtResource("10_2vdjk")]
 position = Vector2(216, 264)
-v_range = 100.0
-v_speed = 2.0
 
 [connection signal="player_death" from="Player" to="." method="_on_player_player_death"]
 [connection signal="timeout" from="RespawnDelay" to="." method="_on_respawn_delay_timeout"]
 
+[editable path="Enemies/FlyFloatingEnemy"]
+[editable path="Enemies/LavaFloatingEnemy"]
 [editable path="Enemies/FrogEnemy"]
 [editable path="Enemies/BeeEnemy"]
 [editable path="Enemies/BeeEnemy2"]
