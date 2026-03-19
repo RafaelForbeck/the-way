@@ -25,3 +25,9 @@ region_rect = Rect2(576, 432, 70, 40)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_vb1vw")
 one_way_collision = true
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
