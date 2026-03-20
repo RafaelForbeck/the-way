@@ -8,7 +8,8 @@ extends AnimatableBody2D
 
 func _ready() -> void:
 	target.visible = false
-	start_timer.wait_time = delay
+	if delay > 0:
+		start_timer.wait_time = delay
 	start_timer.start()
 	
 func start_movement():
